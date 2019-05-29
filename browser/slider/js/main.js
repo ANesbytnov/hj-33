@@ -11,5 +11,7 @@ const urls = [
 
 if (slider && urls.length > 0) {
 	let urlId = -1;
-	setInterval(() => slider.setAttribute('src', urls[urlId = (urlId + 1) % urls.length]), 5000);
+	const rotate = () => slider.setAttribute('src', urls[urlId = (urlId + 1) % urls.length]);
+	rotate();
+	setInterval(rotate, 5000);
 }
