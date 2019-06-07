@@ -22,8 +22,18 @@ const setSong = (id) => {
 	}
 };
 
-document.getElementsByClassName('fa-play')[0].onclick = () => { audio.play(); mediaplayer.classList.add('play'); };
-document.getElementsByClassName('fa-pause')[0].onclick = () => { audio.pause(); mediaplayer.classList.remove('play'); };
-document.getElementsByClassName('fa-stop')[0].onclick = () => { audio.pause(); mediaplayer.classList.remove('play'); audio.currentTime = 0; };
-document.getElementsByClassName('fa-forward')[0].onclick = () => setSong((songId + 1) % songs.length);
-document.getElementsByClassName('fa-backward')[0].onclick = () => setSong((songId + songs.length - 1) % songs.length);
+document.getElementsByClassName('playstate')[0].onclick = () => { 
+	mediaplayer.classList.toggle('play');
+	if (mediaplayer.classList.contains('play')) {
+		audio.play();
+	} else {
+		audio.pause();
+	}
+};
+document.getElementsByClassName('stop')[0].onclick = () => { 
+	audio.pause(); 
+	mediaplayer.classList.remove('play'); 
+	audio.currentTime = 0; 
+};
+document.getElementsByClassName('next')[0].onclick = () => setSong((songId + 1) % songs.length);
+document.getElementsByClassName('back')[0].onclick = () => setSong((songId + songs.length - 1) % songs.length);
