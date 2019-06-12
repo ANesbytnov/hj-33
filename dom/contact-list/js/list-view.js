@@ -23,7 +23,7 @@ function contactClick(event) {
 
 function backClick() {
   container.classList.remove('details');
-  const items = document.querySelectorAll('.list-view li');
+  const items = document.querySelectorAll('.list-view li.active');
   for (let item of items) {
       item.classList.remove('active');
   }
@@ -33,6 +33,8 @@ function init() {
   container = document.getElementById('container');
   container.querySelector('.list-view').addEventListener('click', contactClick);
   container.querySelector('.back').addEventListener('click', backClick);
+
+  document.querySelector('.contacts-list').innerHTML = JSON.parse(loadContacts()).map((e) => `<li data-email='${e.email}'' data-phone='${e.phone}'>${e.name}</li>`).join('');
 }
 
 document.addEventListener('DOMContentLoaded', init);
