@@ -8,18 +8,17 @@ function onLoad() {
 
   document.querySelectorAll('nav > a').forEach(a => a.addEventListener('click', function(e) {  	
   	e.preventDefault();
-  	if (e.target.classList.contains('active')) { // Если мы кликнули на активную вкладку, то ничего не делаем
-  		return;
-  	}
+
   	document.querySelector('nav > a.active').classList.remove('active');
   	e.target.classList.add('active');
 
-  	var xhr = new XMLHttpRequest();
+  	const xhr = new XMLHttpRequest();
 	xhr.addEventListener("load", onLoad);
 	xhr.addEventListener("loadstart", preToggleHidden);
 	xhr.addEventListener("loadend", preToggleHidden);
 	xhr.open("GET", e.target.href);
 	xhr.send();
+
 
 	function onLoad() {
 	  if (xhr.status !== 200) {
@@ -28,8 +27,9 @@ function onLoad() {
 	  	content.innerHTML = xhr.responseText;
 	  }
 	}
-
   }));
+
+  document.querySelector("nav > a").click();
 }
 
 document.addEventListener('DOMContentLoaded', onLoad);
