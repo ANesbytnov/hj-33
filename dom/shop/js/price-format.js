@@ -8,11 +8,11 @@ function getPriceFormatted(value) {
 let count = 0;
 let sum = 0;
 
-function init() {
-	document.querySelectorAll('.add').forEach(buAdd => buAdd.addEventListener('click', function(e) {
-		document.querySelector('#cart-count').innerHTML = ++count;
-		document.querySelector('#cart-total-price').innerHTML = getPriceFormatted(sum += +e.target.dataset.price);
-	}));
+function onclick(e) {
+	document.querySelector('#cart-count').innerHTML = ++count;
+	document.querySelector('#cart-total-price').innerHTML = getPriceFormatted(sum += +e.target.dataset.price);
 }
+
+const init = () => document.querySelectorAll('.add').forEach(buAdd => buAdd.addEventListener('click', onclick));
 
 document.addEventListener('DOMContentLoaded', init);
