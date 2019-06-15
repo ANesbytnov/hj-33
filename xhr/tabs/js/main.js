@@ -5,31 +5,29 @@ function onLoad() {
   const content = document.querySelector('#content');
   const pre = document.querySelector('#preloader');
   const preToggleHidden = () => pre.classList.toggle('hidden');
+  const xhr = new XMLHttpRequest();
+  const xhrOnLoad = () => xhr.status !== 200 ? console.log(`Ответ ${xhr.status}: ${xhr.statusText}`) : content.innerHTML = xhr.responseText;
 
-  document.querySelectorAll('nav > a').forEach(a => a.addEventListener('click', function(e) {  	
-  	e.preventDefault();
-
-  	document.querySelector('nav > a.active').classList.remove('active');
-  	e.target.classList.add('active');
-
-  	const xhr = new XMLHttpRequest();
-	xhr.addEventListener("load", onLoad);
+  function xhrRequest(e) {
+	xhr.addEventListener("load", xhrOnLoad);
 	xhr.addEventListener("loadstart", preToggleHidden);
 	xhr.addEventListener("loadend", preToggleHidden);
 	xhr.open("GET", e.target.href);
-	xhr.send();
+	xhr.send();  	
+  }
 
+  function activeTab(e) {
+  	document.querySelector('nav > a.active').classList.remove('active');
+  	e.target.classList.add('active');  	
+  }
 
-	function onLoad() {
-	  if (xhr.status !== 200) {
-	    console.log(`Ответ ${xhr.status}: ${xhr.statusText}`);
-	  } else {
-	  	content.innerHTML = xhr.responseText;
-	  }
-	}
+  document.querySelectorAll('nav > a').forEach(a => a.addEventListener('click', function(e) {  	
+  	e.preventDefault();
+  	xhrRequest(e);
+  	activeTab(e);
   }));
 
-  document.querySelector("nav > a").click();
+  document.querySelector("nav > a.active").click();
 }
 
 document.addEventListener('DOMContentLoaded', onLoad);
