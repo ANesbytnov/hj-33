@@ -11,8 +11,8 @@ function onLoad() {
 	const checkForm = () => contentform.querySelector('.button-contact').disabled = [...inputs].filter(el => el.value == '').length > 0;
 	const filterNumbers = (e) => e.target.value = e.target.value.match(/\d+/g);
 
-	inputs.forEach(elem => elem.addEventListener('input', checkForm));
 	contentform.querySelector('input[name="zip"]').addEventListener('input', filterNumbers);
+	inputs.forEach(elem => elem.addEventListener('input', checkForm));
 
 	contentform.addEventListener('submit', function(e) {
 		e.preventDefault();
